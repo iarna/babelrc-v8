@@ -7,3 +7,5 @@ verify.js
 generate-all.sh
 methodology.md
 node-versions.md
+publish-all-modules.sh
+.npmignore
