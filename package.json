@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prepublish": "node verify.js",
-    "version": "echo 'Do your builds for this version (exit when done, node verify.js to see if you are done)' && bash && node verify.js",
+    "version": "echo 'Do your builds for this version (exit when done, node verify.js to see if you are done)' && bash && node verify.js && git add modules",
     "postpublish": "bash publish-all-modules.sh"
   },
   "repository": {
