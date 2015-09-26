@@ -7,6 +7,7 @@ var clone = require('lodash.clonedeep')
 var v8version = process.versions.v8
 var packageJson = require('./package.json')
 var templatePackageJson = require('./template-package.json')
+var readme = fs.readFileSync('module-README.md')
 
 var config = {
   "blacklist": generateBlacklist(),
@@ -21,10 +22,13 @@ modulejson.version = packageJson.version
 modulejson.description = 'A babelrc tuned for use with v8 ' + v8version
 modulejson.engines = {node: process.version}
 
-rimraf.sync(path.join('modules', modulename))
-mkdirp.sync(path.join('modules', modulename))
-fs.writeFileSync(path.join('modules', modulename, 'package.json'), JSON.stringify(modulejson, null, 2))
-fs.writeFileSync(path.join('modules', modulename, modulejson.main), JSON.stringify(config, null, 2))
+var modulePath = path.join('modules', modulename)
+
+rimraf.sync(modulePath)
+mkdirp.sync(modulePath)
+fs.writeFileSync(path.join(modulePath, 'package.json'), JSON.stringify(modulejson, null, 2))
+fs.writeFileSync(path.join(modulePath, modulejson.main), JSON.stringify(config, null, 2))
+fs.writeFileSync(path.join(modulePath, 'README.md'), readme)
 
 var supportedVersions = require('./supported-versions.json')
 supportedVersions[v8version] = modulename

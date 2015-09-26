@@ -9,3 +9,4 @@ methodology.md
 node-versions.md
 publish-all-modules.sh
 .npmignore
+module-README.md
