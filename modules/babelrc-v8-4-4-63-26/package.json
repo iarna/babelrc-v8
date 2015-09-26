@@ -7,7 +7,7 @@
   "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
   "license": "ISC",
   "name": "babelrc-v8-4-4-63-26",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A babelrc tuned for use with v8 4.4.63.26",
   "engines": {
     "node": "v3.0.0"

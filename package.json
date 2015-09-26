@@ -1,6 +1,6 @@
 {
   "name": "babelrc-v8",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of babelrcs for the v8 versions that ship with node.",
   "main": "supported-versions.json",
   "devDependencies": {
