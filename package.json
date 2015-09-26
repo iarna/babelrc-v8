@@ -1,0 +1,22 @@
+{
+  "name": "babelrc-v8",
+  "version": "0.0.0",
+  "description": "A collection of babelrcs for the v8 versions that ship with node.",
+  "main": "supported-versions.json",
+  "devDependencies": {
+    "lodash.clonedeep": "^3.0.2",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.4.3"
+  },
+  "scripts": {
+    "prepublish": "node verify.js",
+    "version": "echo 'Do your builds for this version (exit when done, node verify.js to see if you are done)' && bash && node verify.js",
+    "postpublish": "bash publish-all-modules.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iarna/babelrc-v8.git"
+  },
+  "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
+  "license": "ISC"
+}

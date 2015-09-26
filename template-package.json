@@ -1,0 +1,9 @@
+{
+  "main": "babelrc.json",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iarna/babelrc-v8.git"
+  },
+  "author": "Rebecca Turner <me@re-becca.org> (http://re-becca.org/)",
+  "license": "ISC"
+}

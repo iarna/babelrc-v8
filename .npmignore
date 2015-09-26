@@ -1,0 +1,9 @@
+modules
+*~
+.#*
+DEADJOE
+generate-module.js
+verify.js
+generate-all.sh
+methodology.md
+node-versions.md
