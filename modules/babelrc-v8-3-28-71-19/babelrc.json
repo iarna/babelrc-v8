@@ -1,0 +1,9 @@
+{
+  "blacklist": [
+    "es3.memberExpressionLiterals",
+    "es3.propertyLiterals",
+    "es5.properties.mutators",
+    "es6.forOf"
+  ],
+  "optional": []
+}
