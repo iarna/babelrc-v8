@@ -1,0 +1,15 @@
+{
+  "blacklist": [
+    "es3.memberExpressionLiterals",
+    "es3.propertyLiterals",
+    "es5.properties.mutators",
+    "es6.blockScoping",
+    "es6.constants",
+    "es6.forOf",
+    "es6.literals",
+    "es6.templateLiterals"
+  ],
+  "optional": [
+    "asyncToGenerator"
+  ]
+}
