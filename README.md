@@ -21,7 +21,8 @@ version of v8.  Using a babelrc matching the v8 version will give you code
 as close to what you wrote as is possible– possibly with no changes at all
 if you don't use any features that are unsupported by your version of v8.
 
-This module is published solely to be an index of the per-version modules
-and is unlikely to have a great deal of utility to most folks in and of
-itself.
+If you want the path of one of these babelrcs, suitable to passing to `babel --babelrc`:
 
+```
+var pathToBabelrc = require.resolve('babelrc-v8/babelrcs/babelrc-v8-3-11-10-17')
+```

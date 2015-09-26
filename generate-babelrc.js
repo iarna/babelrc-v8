@@ -3,35 +3,24 @@ var path = require('path')
 var fs = require('fs')
 var rimraf = require('rimraf')
 var mkdirp = require('mkdirp')
-var clone = require('lodash.clonedeep')
 var v8version = process.versions.v8
-var packageJson = require('./package.json')
-var templatePackageJson = require('./template-package.json')
-var readme = fs.readFileSync('module-README.md')
 
 var config = {
   "blacklist": generateBlacklist(),
   "optional": generateOptional()
 }
 
-var modulestub = v8version.replace(/[.]/g,'-')
-var modulename = 'babelrc-v8-' + modulestub
-var modulejson = clone(templatePackageJson)
-modulejson.name = modulename
-modulejson.version = packageJson.version
-modulejson.description = 'A babelrc tuned for use with v8 ' + v8version
-modulejson.engines = {node: process.version.replace(/v/,'^')}
+var verstub = v8version.replace(/[.]/g,'-')
+var filename = 'babelrc-v8-' + verstub
 
-var modulePath = path.join('modules', modulename)
+var babelrcPath = path.join('babelrcs', filename)
 
-rimraf.sync(modulePath)
-mkdirp.sync(modulePath)
-fs.writeFileSync(path.join(modulePath, 'package.json'), JSON.stringify(modulejson, null, 2))
-fs.writeFileSync(path.join(modulePath, modulejson.main), JSON.stringify(config, null, 2))
-fs.writeFileSync(path.join(modulePath, 'README.md'), readme)
+rimraf.sync(babelrcPath)
+mkdirp.sync('babelrcs')
+fs.writeFileSync(babelrcPath, JSON.stringify(config, null, 2))
 
 var supportedVersions = require('./supported-versions.json')
-supportedVersions[v8version] = modulename
+supportedVersions[v8version] = filename
 fs.writeFileSync('supported-versions.json', JSON.stringify(supportedVersions, null, 2))
 
 function tryAnd(toTry, andThen) {
