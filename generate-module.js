@@ -20,7 +20,7 @@ var modulejson = clone(templatePackageJson)
 modulejson.name = modulename
 modulejson.version = packageJson.version
 modulejson.description = 'A babelrc tuned for use with v8 ' + v8version
-modulejson.engines = {node: process.version}
+modulejson.engines = {node: process.version.replace(/v/,'^')}
 
 var modulePath = path.join('modules', modulename)
 
