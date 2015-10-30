@@ -7,6 +7,9 @@
     "mkdirp": "^0.5.1",
     "rimraf": "^2.4.3"
   },
+  "peerDependencies": {
+    "babel": "^6.0.0"
+  },
   "scripts": {
     "prepublish": "node verify.js",
     "version": "echo 'Do your builds for this version (exit when done, node verify.js to see if you are done)' && bash && node verify.js && git add babelrcs"

@@ -6,8 +6,7 @@ var mkdirp = require('mkdirp')
 var v8version = process.versions.v8
 
 var config = {
-  "blacklist": generateBlacklist(),
-  "optional": generateOptional()
+  "plugins": generatePlugins()
 }
 
 var verstub = v8version.replace(/[.]/g,'-')
@@ -38,58 +37,52 @@ function tryOr(toTry, orElse) {
   }
 }
 
-function generateBlacklist () {
-  var blacklist = []
+function generatePlugins () {
+  var plugins = ['transform-strict-mode']
 
-  function bltry(transformer, example) {
-    tryAnd(example, function () {
-      blacklist.push(transformer)
+  function plugtry(transformer, example) {
+    tryOr(example, function () {
+      plugins.push(transformer)
     })
   }
-
-  bltry('es3.memberExpressionLiterals', 'var foo = { "catch": 13 }; foo.catch')
-  bltry('es3.propertyLiterals', 'var foo = { catch: function () {} }')
-  bltry('es5.properties.mutators', 'var foo = { get bar() { return "bar"; } };')
-  bltry('es6.arrowFunctions', '() => 23')
-  bltry('es6.blockScoping', 'let a = 3')
-  bltry('es6.classes', 'class foo { }')
-  bltry('es6.constants', 'const b = 5')
-  bltry('es6.destructuring', 'var [a, ,b] = [1,2,3]')
-  bltry('es6.forOf', 'var a = [1,2,3]; for (var n of a) { }')
-  bltry('es6.literals', '0b10 + 0o70')
-  bltry('es6.modules', 'export var pi = 3.14; import fs from "fs"')
-  bltry('es6.objectSuper', 'class foo { } class bar extends foo { constructor () { super() } }')
-  bltry('es6.parameters', 'function f(x, y=12) {} ; function f(x, ...y) {}')
-  bltry('es6.properties.computed', 'var obj = { [ "prop_" + (function () { return 42 })() ]: 42 }')
-  bltry('es6.properties.shorthand', 'var a = 23; var obj = { a }')
-  bltry('es6.spread', 'var a = [...[1,2,3]]')
-  bltry('es6.tailCall',
-    'function factorial(n, acc) {' +
-    '  "use strict";' +
-    '  if (acc == null) acc = 1;' +
-    '  if (n <= 1) return acc;' +
-    '  return factorial(n - 1, n * acc);' +
-    '}' +
-    'factorial(100000)')
-  bltry('es6.templateLiterals', '`This is an\nexample`')
-  bltry('es6.regex.unicode', 'assert("𠮷".match(/./u)[0].length == 2); assert("\\u{20BB7}" == "𠮷" == "\\uD842\\uDFB7"); assert("𠮷".codePointAt(0) == 0x20BB7)')
-  bltry('es6.regex.sticky', 'RegExp("", "y");')
-  bltry('es7.asyncFunctions', 'async function () {}')
-  bltry('es7.exponentiationOperator', 'assert(2**2 === 4)')
-  bltry('es7.objectRestSpread', 'var { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };')
-
-  return blacklist
-}
-
-function generateOptional() {
-  var optional = []
-  function opttry(transformer, ifMissing, andHas) {
+  function plugtryWith(transformer, ifMissing, andHas) {
     tryOr(ifMissing, function () {
       tryAnd(andHas, function () {
         optional.push(transformer)
       })
     })
   }
-  opttry('asyncToGenerator', 'async function () {}', 'function* asynctogentest () {}')
-  return optional
+
+  plugtry('transform-es3-member-expression-literals', 'var foo = { "catch": 13 }; foo.catch')
+  plugtry('transform-es3-property-literals', 'var foo = { catch: function () {} }')
+  plugtry('transform-es5-property-mutators', 'var foo = { get bar() { return "bar"; } };')
+
+  plugtry('transform-es2015-arrow-functions', '() => 23')
+  plugtry('transform-es2015-block-scoping', 'let a = 3')
+  plugtry('transform-es2015-block-scoped-functions', 'function a () { return true } ; if (true) { function a () {return false} }; if (!a()) throw "boom"')
+  plugtry('transform-es2015-classes', 'class foo { }')
+  plugtry('transform-es2015-computed-properties', 'var obj = { [ "prop_" + (function () { return 42 })() ]: 42 }')
+  plugtry('transform-es2015-constants', 'const b = 5')
+  plugtry('transform-es2015-destructuring', 'var [a, ,b] = [1,2,3]')
+  plugtry('transform-es2015-for-of', 'var a = [1,2,3]; for (var n of a) { }')
+  plugtry('transform-es2015-function-name', 'var a = function () {}; if (a.name==null) throw "boom"')
+  plugtry('transform-es2015-literals', '0b10 + 0o70')
+  plugtry('transform-es2015-modules-commonjs', 'export var pi = 3.14; import fs from "fs"')
+  plugtry('transform-es2015-object-super', 'class foo { } class bar extends foo { constructor () { super() } }')
+  plugtry('transform-es2015-parameters', 'function f(x, y=12) {} ; function f(x, ...y) {}')
+  plugtry('transform-es2015-shorthand-properties', 'var a = 23; var obj = { a }')
+  plugtry('transform-es2015-spread', 'var a = [...[1,2,3]]')
+  plugtry('transform-es2015-sticky-regex', 'RegExp("", "y");')
+  plugtry('transform-es2015-template-literals', '`This is an\nexample`')
+  plugtry('transform-es2015-typeof-symbol', 'var a = Symbol(); typeof a === "symbol" || throw "boom"')
+  plugtry('transform-es2015-unicode-regex', 'assert("𠮷".match(/./u)[0].length == 2); assert("\\u{20BB7}" == "𠮷" == "\\uD842\\uDFB7"); assert("𠮷".codePointAt(0) == 0x20BB7)')
+
+  plugtry('transform-exponentiation-operator', 'assert(2**2 === 4)')
+  plugtry('transform-object-rest-spread', 'var { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };')
+
+//  plugtry('transform-regenerator', 'function *foo() {}')
+
+  plugtryWith('transform-async-to-generator', 'async function () {}', 'function* asynctogentest () {}')
+
+  return plugins
 }
