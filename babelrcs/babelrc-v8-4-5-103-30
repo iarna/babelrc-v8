@@ -1,20 +1,14 @@
 {
-  "blacklist": [
-    "es3.memberExpressionLiterals",
-    "es3.propertyLiterals",
-    "es5.properties.mutators",
-    "es6.arrowFunctions",
-    "es6.blockScoping",
-    "es6.classes",
-    "es6.constants",
-    "es6.forOf",
-    "es6.literals",
-    "es6.objectSuper",
-    "es6.properties.computed",
-    "es6.properties.shorthand",
-    "es6.templateLiterals"
-  ],
-  "optional": [
-    "asyncToGenerator"
+  "plugins": [
+    "transform-strict-mode",
+    "transform-es2015-destructuring",
+    "transform-es2015-modules-commonjs",
+    "transform-es2015-parameters",
+    "transform-es2015-spread",
+    "transform-es2015-sticky-regex",
+    "transform-es2015-typeof-symbol",
+    "transform-es2015-unicode-regex",
+    "transform-exponentiation-operator",
+    "transform-object-rest-spread"
   ]
 }
