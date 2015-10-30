@@ -26,3 +26,7 @@ If you want the path of one of these babelrcs, suitable to passing to `babel --b
 ```
 var pathToBabelrc = require.resolve('babelrc-v8/babelrcs/babelrc-v8-3-11-10-17')
 ```
+
+### NOTICE: BABEL 6
+
+babelrc-v8 >= 3.0.0 generates configs for Babel 6, < 3.0.0 generates config for Babel 5.
